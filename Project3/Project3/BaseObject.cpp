@@ -1,10 +1,10 @@
 #include "BaseObject.h"
 
 BaseObject::BaseObject(int id, std::string name, int x, int y) {
-	BaseObject::id = id;
-	BaseObject::name = name;
-	BaseObject::position.x = x;
-	BaseObject::position.y = y;
+	this->id = id;
+	this->name = name;
+	this->position.x = x;
+	this->position.y = y;
 }
 std::string BaseObject::getName() {
 	return name;
