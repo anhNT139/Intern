@@ -5,9 +5,9 @@ class OpenedState :
     public StateBase
 {
 public:
-    void unlock(StateContext*);
-    void open(StateContext*);
-    void close(StateContext*);
-    void lock(StateContext*);
+    void unlock(StateContext*) override;
+    void open(StateContext*) override;
+    void close(StateContext*) override;
+    void lock(StateContext*) override;
 };
 
