@@ -5,6 +5,7 @@ class Sprite2D;
 class Sprite3D;
 class Text;
 class GameButton;
+class Ship;
 
 class GSPlay :
 	public GameStateBase
@@ -28,8 +29,9 @@ public:
 
 private:
 	std::shared_ptr<Sprite2D>	m_background;
+	std::shared_ptr<Ship>	m_playerShip;
+	std::list<std::shared_ptr<Sprite2D>>	m_listMeteorite;
 	std::shared_ptr<Text>		m_score;
 	std::list<std::shared_ptr<GameButton>>	m_listButton;
 
 };
-

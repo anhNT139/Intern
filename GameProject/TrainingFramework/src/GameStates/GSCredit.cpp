@@ -16,7 +16,7 @@ GSCredit::~GSCredit()
 void GSCredit::Init()
 {
 	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
-	auto texture = ResourceManagers::GetInstance()->GetTexture("bg_play2.tga");
+	auto texture = ResourceManagers::GetInstance()->GetTexture("bg_main_menu.tga");
 
 	// background
 	auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
@@ -38,12 +38,8 @@ void GSCredit::Init()
 	// text infomation
 	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
 	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("Brightly Crush Shine.otf");
-	std::shared_ptr<Text> text = std::make_shared< Text>(shader, font, "Nguyen Tuan Anh", TextColor::GREEN, 2.0f);
+	std::shared_ptr<Text> text = std::make_shared< Text>(shader, font, "Nguyen Tuan Anh", TextColor::PURPLE, 2.0f);
 	text->Set2DPosition(Vector2(50, 300));
-	m_listText.push_back(text);
-	
-	text = std::make_shared< Text>(shader, font, "K63 HUST", TextColor::GREEN, 2.0f);
-	text->Set2DPosition(Vector2(50, 400));
 	m_listText.push_back(text);
 }
 
