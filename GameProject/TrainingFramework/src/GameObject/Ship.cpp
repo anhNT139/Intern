@@ -1,17 +1,6 @@
 #include "Ship.h"
 #include "Bullet.h"
-
-Ship::Ship(GLint id, std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture)
-	: Sprite2D(id, model, shader, texture) 
-{
-	Init();
-}
-
-Ship::Ship(GLint id, std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, Vector4 color)
-	: Sprite2D(id, model, shader, color)
-{
-	Init();
-}
+#include<iostream>
 
 Ship::Ship(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture)
 	: Sprite2D(model, shader, texture) 
@@ -27,4 +16,21 @@ void Ship::shoot(std::shared_ptr<Bullet> bullet) {
 
 std::vector<std::shared_ptr<Bullet>> Ship::getBullet() {
 	return m_listBullet;
+}
+
+void Ship::removeBullet(int index)
+{
+	m_listBullet.erase(m_listBullet.begin() + index);
+}
+
+void Ship::Update(GLfloat deltatime)
+{
+	for (int i = 0; i < m_listBullet.size(); i++)
+	{
+		m_listBullet[i]->Update(deltatime);
+		if (m_listBullet[i]->GetPosition().y < -45)
+		{
+			removeBullet(i);
+		}
+	}
 }

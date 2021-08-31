@@ -76,7 +76,13 @@
       <Filter>TrainingFramework\src\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="src\GameObject\Bullet.cpp">
-      <Filter>TrainingFramework\src\GameStates</Filter>
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject\AnimationSprite.cpp">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject\Meteorite.cpp">
+      <Filter>TrainingFramework\src\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -144,7 +150,13 @@
       <Filter>TrainingFramework\src\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="src\GameObject\Bullet.h">
-      <Filter>TrainingFramework\src\GameStates</Filter>
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject\AnimationSprite.h">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject\Meteorite.h">
+      <Filter>TrainingFramework\src\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
