@@ -5,9 +5,10 @@ class Sprite2D;
 class Sprite3D;
 class Text;
 class GameButton;
-class Ship;
+class PlayerShip;
 class AnimationSprite;
 class Meteorite;
+class Enemy;
 
 class GSPlay :
 	public GameStateBase
@@ -29,13 +30,19 @@ public:
 	void	Update(float deltaTime) override;
 	void	Draw() override;
 	bool	isCollision(std::shared_ptr<Sprite2D> o1, std::shared_ptr<Sprite2D> o2);
+	void	removeMeteorite(int index);
 
 private:
 	std::shared_ptr<Sprite2D>	m_background;
-	std::shared_ptr<Ship>	m_playerShip;
-	std::vector<std::shared_ptr<Meteorite>>	m_listMeteorite;
+	std::shared_ptr<PlayerShip>	m_playerShip;
+	std::shared_ptr<Sprite2D>	m_hpIcon;
+	std::shared_ptr<Text>	m_hpText;
 	std::shared_ptr<Text>		m_score;
+	std::vector<std::shared_ptr<Meteorite>>	m_listMeteorite;
+	std::list<std::shared_ptr<Meteorite>> m_meteoritePool;
 	std::list<std::shared_ptr<GameButton>>	m_listButton;
-	std::shared_ptr<AnimationSprite> m_coin;
-	float time = 0;
+	std::vector<std::shared_ptr<Enemy>>	m_listEnemy;
+	float m_meteoriteGenerateTime;
+	float m_enemyGenerateTime;
+	int m_playerScore;
 };

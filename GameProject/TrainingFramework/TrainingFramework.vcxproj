@@ -306,10 +306,12 @@
     <ClCompile Include="src\GameManager\ResourceManagers.cpp" />
     <ClCompile Include="src\GameObject\AnimationSprite.cpp" />
     <ClCompile Include="src\GameObject\Bullet.cpp" />
+    <ClCompile Include="src\GameObject\Enemy.cpp" />
     <ClCompile Include="src\GameObject\Font.cpp" />
     <ClCompile Include="src\GameObject\GameButton.cpp" />
     <ClCompile Include="src\GameObject\Meteorite.cpp" />
-    <ClCompile Include="src\GameObject\Ship.cpp" />
+    <ClCompile Include="src\GameObject\PlayerShip.cpp" />
+    <ClCompile Include="src\GameObject\SpaceShip.cpp" />
     <ClCompile Include="src\GameObject\Sprite2D.cpp" />
     <ClCompile Include="src\GameObject\Camera.cpp" />
     <ClCompile Include="src\GameObject\Sprite3D.cpp" />
@@ -320,6 +322,7 @@
     <ClCompile Include="src\GameStates\GameStateBase.cpp" />
     <ClCompile Include="src\GameStates\GameStateMachine.cpp" />
     <ClCompile Include="src\GameStates\GSCredit.cpp" />
+    <ClCompile Include="src\GameStates\GSInGameMenu.cpp" />
     <ClCompile Include="src\GameStates\GSIntro.cpp" />
     <ClCompile Include="src\GameStates\GSMenu.cpp" />
     <ClCompile Include="src\GameStates\GSPlay.cpp" />
@@ -333,10 +336,12 @@
     <ClInclude Include="src\GameObject\AnimationSprite.h" />
     <ClInclude Include="src\GameObject\BaseObject.h" />
     <ClInclude Include="src\GameObject\Bullet.h" />
+    <ClInclude Include="src\GameObject\Enemy.h" />
     <ClInclude Include="src\GameObject\Font.h" />
     <ClInclude Include="src\GameObject\GameButton.h" />
     <ClInclude Include="src\GameObject\Meteorite.h" />
-    <ClInclude Include="src\GameObject\Ship.h" />
+    <ClInclude Include="src\GameObject\PlayerShip.h" />
+    <ClInclude Include="src\GameObject\SpaceShip.h" />
     <ClInclude Include="src\GameObject\Sprite2D.h" />
     <ClInclude Include="src\GameObject\Camera.h" />
     <ClInclude Include="src\GameObject\Sprite3D.h" />
@@ -347,6 +352,7 @@
     <ClInclude Include="src\GameStates\GameStateBase.h" />
     <ClInclude Include="src\GameStates\GameStateMachine.h" />
     <ClInclude Include="src\GameStates\GSCredit.h" />
+    <ClInclude Include="src\GameStates\GSInGameMenu.h" />
     <ClInclude Include="src\GameStates\GSIntro.h" />
     <ClInclude Include="src\GameStates\GSMenu.h" />
     <ClInclude Include="src\GameStates\GSPlay.h" />

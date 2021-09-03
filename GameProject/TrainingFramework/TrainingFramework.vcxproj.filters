@@ -72,7 +72,7 @@
     <ClCompile Include="src\GameStates\GSCredit.cpp">
       <Filter>TrainingFramework\src\GameStates</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameObject\Ship.cpp">
+    <ClCompile Include="src\GameObject\PlayerShip.cpp">
       <Filter>TrainingFramework\src\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="src\GameObject\Bullet.cpp">
@@ -83,6 +83,15 @@
     </ClCompile>
     <ClCompile Include="src\GameObject\Meteorite.cpp">
       <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject\Enemy.cpp">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject\SpaceShip.cpp">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameStates\GSInGameMenu.cpp">
+      <Filter>TrainingFramework\src\GameStates</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -146,7 +155,7 @@
     <ClInclude Include="src\GameStates\GSCredit.h">
       <Filter>TrainingFramework\src\GameStates</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameObject\Ship.h">
+    <ClInclude Include="src\GameObject\PlayerShip.h">
       <Filter>TrainingFramework\src\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="src\GameObject\Bullet.h">
@@ -157,6 +166,15 @@
     </ClInclude>
     <ClInclude Include="src\GameObject\Meteorite.h">
       <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject\Enemy.h">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject\SpaceShip.h">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameStates\GSInGameMenu.h">
+      <Filter>TrainingFramework\src\GameStates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

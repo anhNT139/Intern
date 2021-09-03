@@ -8,7 +8,7 @@ Meteorite::Meteorite(std::shared_ptr<Model> model, std::shared_ptr<Shader> shade
 
 Meteorite::~Meteorite() {};
 
-void Meteorite::Update(GLfloat deltatime)
+void Meteorite::Update(GLfloat deltaTime)
 {
-	Set2DPosition(this->GetPosition().x, this->GetPosition().y + 100 * deltatime);
+	Set2DPosition(this->GetPosition().x, this->GetPosition().y + 100 * deltaTime);
 }

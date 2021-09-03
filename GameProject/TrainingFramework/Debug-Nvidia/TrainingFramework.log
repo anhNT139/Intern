@@ -1,28 +1,31 @@
-﻿  Meteorite.cpp
-  GSPlay.cpp
-C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(201,36): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(221,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(223,21): warning C4018: '<': signed/unsigned mismatch
+﻿  GSPlay.cpp
+C:\Users\keple\source\repos\Intern\Intern-master\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(238,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\keple\source\repos\Intern\Intern-master\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(240,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\keple\source\repos\Intern\Intern-master\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(249,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\keple\source\repos\Intern\Intern-master\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(260,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\keple\source\repos\Intern\Intern-master\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(270,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\keple\source\repos\Intern\Intern-master\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(281,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\keple\source\repos\Intern\Intern-master\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(293,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\keple\source\repos\Intern\Intern-master\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(302,20): warning C4018: '<': signed/unsigned mismatch
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\xutility(158,77): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
           with
           [
               _Ty=double
           ]
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\memory(2029): message : see reference to function template instantiation 'void std::_Construct_in_place<_Ty,std::shared_ptr<Shader>&,std::shared_ptr<Font>&,const char(&)[9],TextColor,double>(_Ty &,std::shared_ptr<Shader> &,std::shared_ptr<Font> &,const char (&)[9],TextColor &&,double &&) noexcept(false)' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\memory(2029): message : see reference to function template instantiation 'void std::_Construct_in_place<_Ty,std::shared_ptr<Shader>&,std::shared_ptr<Font>&,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,TextColor,double>(_Ty &,std::shared_ptr<Shader> &,std::shared_ptr<Font> &,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&,TextColor &&,double &&) noexcept(false)' being compiled
           with
           [
               _Ty=Text
           ]
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\memory(2748): message : see reference to function template instantiation 'std::_Ref_count_obj2<_Ty>::_Ref_count_obj2<std::shared_ptr<Shader>&,std::shared_ptr<Font>&,const char(&)[9],TextColor,double>(std::shared_ptr<Shader> &,std::shared_ptr<Font> &,const char (&)[9],TextColor &&,double &&)' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\memory(2748): message : see reference to function template instantiation 'std::_Ref_count_obj2<_Ty>::_Ref_count_obj2<std::shared_ptr<Shader>&,std::shared_ptr<Font>&,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,TextColor,double>(std::shared_ptr<Shader> &,std::shared_ptr<Font> &,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&,TextColor &&,double &&)' being compiled
           with
           [
               _Ty=Text
           ]
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\memory(2748): message : see reference to function template instantiation 'std::_Ref_count_obj2<_Ty>::_Ref_count_obj2<std::shared_ptr<Shader>&,std::shared_ptr<Font>&,const char(&)[9],TextColor,double>(std::shared_ptr<Shader> &,std::shared_ptr<Font> &,const char (&)[9],TextColor &&,double &&)' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\memory(2748): message : see reference to function template instantiation 'std::_Ref_count_obj2<_Ty>::_Ref_count_obj2<std::shared_ptr<Shader>&,std::shared_ptr<Font>&,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,TextColor,double>(std::shared_ptr<Shader> &,std::shared_ptr<Font> &,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&,TextColor &&,double &&)' being compiled
           with
           [
               _Ty=Text
           ]
-C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(69): message : see reference to function template instantiation 'std::shared_ptr<Text> std::make_shared<Text,std::shared_ptr<Shader>&,std::shared_ptr<Font>&,const char(&)[9],TextColor,double>(std::shared_ptr<Shader> &,std::shared_ptr<Font> &,const char (&)[9],TextColor &&,double &&)' being compiled
-  Generating Code...
-  TrainingFramework.vcxproj -> C:\Users\keple\source\repos\Intern\GameProject\BIN-Nvidia\TrainingFramework.exe
+C:\Users\keple\source\repos\Intern\Intern-master\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(69): message : see reference to function template instantiation 'std::shared_ptr<Text> std::make_shared<Text,std::shared_ptr<Shader>&,std::shared_ptr<Font>&,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,TextColor,double>(std::shared_ptr<Shader> &,std::shared_ptr<Font> &,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&,TextColor &&,double &&)' being compiled
+  TrainingFramework.vcxproj -> C:\Users\keple\source\repos\Intern\Intern-master\GameProject\BIN-Nvidia\TrainingFramework.exe

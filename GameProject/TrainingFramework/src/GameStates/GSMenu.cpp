@@ -7,12 +7,9 @@ GSMenu::GSMenu() : GameStateBase(StateType::STATE_MENU),
 {
 }
 
-
 GSMenu::~GSMenu()
 {
 }
-
-
 
 void GSMenu::Init()
 {
