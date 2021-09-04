@@ -46,13 +46,3 @@ void PlayerShip::Shoot() {
 		m_shootTime = 0;
 	}
 }
-
-int PlayerShip::GetHp()
-{
-	return m_hp;
-}
-
-void PlayerShip::SetHp(int hp)
-{
-	m_hp = hp;
-}

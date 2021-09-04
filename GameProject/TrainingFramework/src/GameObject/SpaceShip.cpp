@@ -14,6 +14,13 @@ SpaceShip::SpaceShip(std::shared_ptr<Model> model, std::shared_ptr<Shader> shade
 	m_speed = speed;
 }
 
+SpaceShip::SpaceShip(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture, int speed, int hp)
+	: Sprite2D(model, shader, texture)
+{
+	SpaceShip(model, shader, texture, speed);
+	m_hp = hp;
+}
+
 SpaceShip::~SpaceShip() 
 {
 
@@ -51,4 +58,14 @@ void SpaceShip::SetSpeed(int speed)
 int SpaceShip::GetSpeed()
 {
 	return m_speed;
+}
+
+int SpaceShip::GetHp()
+{
+	return m_hp;
+}
+
+void SpaceShip::SetHp(int hp)
+{
+	m_hp = hp;
 }

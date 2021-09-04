@@ -11,14 +11,18 @@ protected:
 	float m_shootTime;
 	float m_shootInterval;
 	int m_speed;
+	int m_hp;
 public:
 	SpaceShip() : Sprite2D() {}
 	SpaceShip(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture);
 	SpaceShip(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture, int speed);
+	SpaceShip(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture, int speed, int hp);
 	~SpaceShip();
 	std::vector<std::shared_ptr<Bullet>> getBullet();
 	virtual void Update(GLfloat deltaTime);
 	void		removeBullet(int index);
 	void		SetSpeed(int speed);
 	int			GetSpeed();
+	void		SetHp(int hp);
+	int			GetHp();
 };

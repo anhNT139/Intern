@@ -30,11 +30,12 @@ public:
 	void	Update(float deltaTime) override;
 	void	Draw() override;
 	bool	isCollision(std::shared_ptr<Sprite2D> o1, std::shared_ptr<Sprite2D> o2);
-	void	removeMeteorite(int index);
+	void	RemoveMeteorite(int index);
+	bool	MainCharacterCollision();
 
 private:
 	std::shared_ptr<Sprite2D>	m_background;
-	std::shared_ptr<PlayerShip>	m_playerShip;
+	std::shared_ptr<PlayerShip>	m_mainCharacter;
 	std::shared_ptr<Sprite2D>	m_hpIcon;
 	std::shared_ptr<Text>	m_hpText;
 	std::shared_ptr<Text>		m_score;
@@ -45,4 +46,8 @@ private:
 	float m_meteoriteGenerateTime;
 	float m_enemyGenerateTime;
 	int m_playerScore;
+	float m_immortalTime;
+	float m_xxxxx;
+	bool m_justCollided;
+	bool m_alive;
 };

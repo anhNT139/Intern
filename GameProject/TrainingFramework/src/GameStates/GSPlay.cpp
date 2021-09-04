@@ -24,12 +24,15 @@ GSPlay::~GSPlay()
 {
 }
 
-std::shared_ptr<PlayerShip> playerShip;
 void GSPlay::Init()
 {
 	m_meteoriteGenerateTime = 1.0f;
 	m_enemyGenerateTime = 3.0f;
 	m_playerScore = 0;
+	m_xxxxx = 0;
+	m_immortalTime = 3.0f;
+	m_justCollided = false;
+	m_alive = true;
 	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
 	auto texture = ResourceManagers::GetInstance()->GetTexture("bg_play1.tga");
 
@@ -57,11 +60,9 @@ void GSPlay::Init()
 
 	// player ship
 	texture = ResourceManagers::GetInstance()->GetTexture("player_ship.tga");
-	playerShip = std::make_shared<PlayerShip>(model, shader, texture, 200);
-	playerShip->Set2DPosition((float)Globals::screenWidth / 2, (float)Globals::screenHeight - 50);
-	playerShip->SetSize(60, 60);
-
-	m_playerShip = playerShip;
+	m_mainCharacter = std::make_shared<PlayerShip>(model, shader, texture, 200);
+	m_mainCharacter->Set2DPosition((float)Globals::screenWidth / 2, (float)Globals::screenHeight - 50);
+	m_mainCharacter->SetSize(60, 60);
 
 	// score
 	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
@@ -70,7 +71,7 @@ void GSPlay::Init()
 	m_score->Set2DPosition(Vector2(5, 25));
 
 	// hp text
-	m_hpText = std::make_shared<Text>(shader, font, std::to_string(m_playerShip->GetHp()), TextColor::RED, 0.75);
+	m_hpText = std::make_shared<Text>(shader, font, std::to_string(m_mainCharacter->GetHp()), TextColor::RED, 0.75);
 	m_hpText->Set2DPosition(Vector2(50, 55));
 }
 
@@ -90,11 +91,6 @@ void GSPlay::Resume()
 
 void GSPlay::HandleEvents()
 {
-	//std::vector<std::shared_ptr<Bullet>> listBullet = m_playerShip->getBullet();
-	//for (auto it : listBullet)
-	//{
-	//	it->Update(1);
-	//}
 }
 
 void GSPlay::HandleKeyEvents(int key, bool bIsPressed)
@@ -160,8 +156,8 @@ void GSPlay::HandleMouseMoveEvents(int x, int y)
 
 void GSPlay::Update(float deltaTime)
 {	
-	Vector3 curPos = m_playerShip->GetPosition();
-	int speed = m_playerShip->GetSpeed();
+	Vector3 curPos = m_mainCharacter->GetPosition();
+	int speed = m_mainCharacter->GetSpeed();
 	// Handle key events
 	if (keyPressed & KEY_MOVE_LEFT)
 	{
@@ -187,14 +183,14 @@ void GSPlay::Update(float deltaTime)
 		if (curPos.y < 30)
 			curPos.y = 30;
 	}
-	m_playerShip->Set2DPosition(curPos.x, curPos.y);
+	m_mainCharacter->Set2DPosition(curPos.x, curPos.y);
 	if (keyPressed & KEY_SHOOT)
 	{
-		m_playerShip->Shoot();
+		m_mainCharacter->Shoot();
 	}
 
 	// update main character
-	m_playerShip->Update(deltaTime);
+	m_mainCharacter->Update(deltaTime);
 
 	// Generate meteorite
 	m_meteoriteGenerateTime -= deltaTime;
@@ -216,7 +212,7 @@ void GSPlay::Update(float deltaTime)
 		meteorite->SetSize(60, 60);
 		meteorite->Set2DPosition(30 + rand() % 421, -30);
 		m_listMeteorite.push_back(meteorite);
-		m_meteoriteGenerateTime = 5.0f;
+		m_meteoriteGenerateTime = 2.0f;
 	}
 
 	// Generate enemy
@@ -234,15 +230,15 @@ void GSPlay::Update(float deltaTime)
 	}
 
 	// handle collision
-	std::vector<std::shared_ptr<Bullet>> listPlayerBullet = m_playerShip->getBullet();
+	std::vector<std::shared_ptr<Bullet>> listPlayerBullet = m_mainCharacter->getBullet();
 	for (int i = 0; i < listPlayerBullet.size(); i++)
 	{
 		for (int j = 0; j < m_listMeteorite.size(); j++)
 		{
 			if (isCollision(listPlayerBullet[i], m_listMeteorite[j]))
 			{
-				m_playerShip->removeBullet(i);
-				removeMeteorite(j);
+				m_mainCharacter->removeBullet(i);
+				RemoveMeteorite(j);
 				m_playerScore += 10;
 			}
 		}
@@ -250,44 +246,41 @@ void GSPlay::Update(float deltaTime)
 		{
 			if (isCollision(listPlayerBullet[i], m_listEnemy[k]))
 			{
-				m_playerShip->removeBullet(i);
+				m_mainCharacter->removeBullet(i);
 				m_listEnemy.erase(m_listEnemy.begin() + k);
 				m_playerScore += 30;
 			}
 		}
 	}
 
-	for (int i = 0; i < m_listEnemy.size(); i++)
+	if (MainCharacterCollision())
 	{
-		std::shared_ptr<Enemy> enemy = m_listEnemy[i];
-		if (isCollision(enemy, m_playerShip))
+		m_justCollided = true;
+		m_alive = false;
+		m_mainCharacter->SetHp(m_mainCharacter->GetHp() - 1);
+		m_hpText->SetText(std::to_string(m_mainCharacter->GetHp()));
+	}
+
+	if (m_justCollided)
+	{
+		m_immortalTime -= deltaTime;
+		if (m_immortalTime <= 0)
 		{
-			m_listEnemy.erase(m_listEnemy.begin() + i);
-			m_playerShip->SetHp(m_playerShip->GetHp() - 1);
-			m_hpText->SetText(std::to_string(m_playerShip->GetHp()));
-		}
-		std::vector <std::shared_ptr<Bullet>> listEnemyBullet = enemy->getBullet();
-		for (int j = 0; j < listEnemyBullet.size(); j++)
-		{
-			if (isCollision(listEnemyBullet[j], m_playerShip))
-			{
-				enemy->removeBullet(j);
-				m_playerShip->SetHp(m_playerShip->GetHp() - 1);
-				m_hpText->SetText(std::to_string(m_playerShip->GetHp()));
-			}
+			m_justCollided = false;
+			m_immortalTime = 3.0f;
 		}
 	}
 
-	for (int i = 0; i < m_listMeteorite.size(); i++)
+	if (!m_alive)
 	{
-		if (isCollision(m_listMeteorite[i], m_playerShip))
+		m_xxxxx -= deltaTime;
+		if (m_xxxxx <= 0)
 		{
-			removeMeteorite(i);
-			m_playerShip->SetHp(m_playerShip->GetHp() - 1);
-			m_hpText->SetText(std::to_string(m_playerShip->GetHp()));
+			m_alive = true;
+			m_mainCharacter->Set2DPosition((float)Globals::screenWidth / 2, (float)Globals::screenHeight - 50);
+			m_xxxxx = 1.0f;
 		}
 	}
-
 
 	// update possition
 	for (int i = 0; i < m_listMeteorite.size(); i++)
@@ -295,14 +288,17 @@ void GSPlay::Update(float deltaTime)
 		m_listMeteorite[i]->Update(deltaTime);
 		if (m_listMeteorite[i]->GetPosition().y > 830)
 		{
-			removeMeteorite(i);
+			RemoveMeteorite(i);
 		}
 	}
 
 	for (int i = 0; i < m_listEnemy.size(); i++)
 	{
 		m_listEnemy[i]->Update(deltaTime);
-		m_listEnemy[i]->Shoot(curPos);
+		if (m_alive)
+		{
+			m_listEnemy[i]->Shoot(curPos);
+		}
 		if (m_listEnemy[i]->GetPosition().x > 550)
 		{
 			m_listEnemy.erase(m_listEnemy.begin() + i);
@@ -316,7 +312,10 @@ void GSPlay::Update(float deltaTime)
 void GSPlay::Draw()
 {
 	m_background->Draw();
-	m_playerShip->Draw();
+	if (m_alive)
+	{
+		m_mainCharacter->Draw();
+	}
 	m_score->Draw();
 	m_hpIcon->Draw();
 	m_hpText->Draw();
@@ -328,7 +327,7 @@ void GSPlay::Draw()
 	{
 		it->Draw();
 	}
-	for (auto it : m_playerShip->getBullet())
+	for (auto it : m_mainCharacter->getBullet())
 	{
 		it->Draw();
 	}
@@ -341,6 +340,8 @@ void GSPlay::Draw()
 		}
 	}
 }
+
+
 
 bool GSPlay::isCollision(std::shared_ptr<Sprite2D> o1, std::shared_ptr<Sprite2D> o2)
 { 
@@ -365,8 +366,47 @@ bool GSPlay::isCollision(std::shared_ptr<Sprite2D> o1, std::shared_ptr<Sprite2D>
 	return false;
 }
 
-void GSPlay::removeMeteorite(int index)
+void GSPlay::RemoveMeteorite(int index)
 {
 	m_meteoritePool.push_back(m_listMeteorite[index]);
 	m_listMeteorite.erase(m_listMeteorite.begin() + index);
+}
+
+bool GSPlay::MainCharacterCollision()
+{
+	if (m_justCollided)
+	{
+		return false;
+	}
+	// between main character and enemy
+	for (int i = 0; i < m_listEnemy.size(); i++)
+	{
+		std::shared_ptr<Enemy> enemy = m_listEnemy[i];
+		if (isCollision(enemy, m_mainCharacter))
+		{
+			m_listEnemy.erase(m_listEnemy.begin() + i);
+			return true;
+		}
+		std::vector <std::shared_ptr<Bullet>> listEnemyBullet = enemy->getBullet();
+		for (int j = 0; j < listEnemyBullet.size(); j++)
+		{
+			if (isCollision(listEnemyBullet[j], m_mainCharacter))
+			{
+				enemy->removeBullet(j);
+				return true;
+			}
+		}
+	}
+
+	// between main character and meteorite
+	for (int i = 0; i < m_listMeteorite.size(); i++)
+	{
+		if (isCollision(m_listMeteorite[i], m_mainCharacter))
+		{
+			RemoveMeteorite(i);
+			return true;
+		}
+	}
+
+	return false;
 }
