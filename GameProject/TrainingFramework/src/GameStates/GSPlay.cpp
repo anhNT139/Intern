@@ -12,6 +12,7 @@
 #include "Bullet.h"
 #include "AnimationSprite.h"
 #include "Meteorite.h"
+#include "BoostItem.h"
 #include "Enemy.h"
 #include <stdlib.h>
 #include <string>
@@ -28,11 +29,9 @@ void GSPlay::Init()
 {
 	m_meteoriteGenerateTime = 1.0f;
 	m_enemyGenerateTime = 3.0f;
+	m_boostItemGenerateTime = rand() % 6 + 15;
 	m_playerScore = 0;
-	m_xxxxx = 0;
-	m_immortalTime = 3.0f;
-	m_justCollided = false;
-	m_alive = true;
+	m_playTime = 0;
 	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
 	auto texture = ResourceManagers::GetInstance()->GetTexture("bg_play1.tga");
 
@@ -156,6 +155,8 @@ void GSPlay::HandleMouseMoveEvents(int x, int y)
 
 void GSPlay::Update(float deltaTime)
 {	
+	std::cout << m_boostItemGenerateTime << std::endl;
+	m_playTime += deltaTime;
 	Vector3 curPos = m_mainCharacter->GetPosition();
 	int speed = m_mainCharacter->GetSpeed();
 	// Handle key events
@@ -186,48 +187,19 @@ void GSPlay::Update(float deltaTime)
 	m_mainCharacter->Set2DPosition(curPos.x, curPos.y);
 	if (keyPressed & KEY_SHOOT)
 	{
-		m_mainCharacter->Shoot();
+		if (m_mainCharacter->Alive())
+		{
+			m_mainCharacter->Shoot();
+		}
 	}
 
 	// update main character
 	m_mainCharacter->Update(deltaTime);
-
-	// Generate meteorite
-	m_meteoriteGenerateTime -= deltaTime;
-	if (m_meteoriteGenerateTime <= 0)
-	{	
-		std::shared_ptr<Meteorite> meteorite;
-		if (m_meteoritePool.empty())
-		{
-			auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
-			auto texture = ResourceManagers::GetInstance()->GetTexture("rock3.tga");
-			auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
-			meteorite = std::make_shared<Meteorite>(model, shader, texture);
-		}
-		else
-		{
-			meteorite = m_meteoritePool.back();
-			m_meteoritePool.pop_back();
-		}
-		meteorite->SetSize(60, 60);
-		meteorite->Set2DPosition(30 + rand() % 421, -30);
-		m_listMeteorite.push_back(meteorite);
-		m_meteoriteGenerateTime = 2.0f;
-	}
-
-	// Generate enemy
-	m_enemyGenerateTime -= deltaTime;
-	if (m_enemyGenerateTime <= 0)
-	{
-		auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
-		auto texture = ResourceManagers::GetInstance()->GetTexture("enemy.tga");
-		auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
-		std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(model, shader, texture, 50);
-		enemy->SetSize(80, 60);
-		enemy->Set2DPosition(0, 300);
-		m_listEnemy.push_back(enemy);
-		m_enemyGenerateTime = 3.0f;
-	}
+	
+	//Generate object
+	GenerateMeteorite(deltaTime);
+	GenerateEnemyShip(deltaTime);
+	GenrateBoostItem(deltaTime);
 
 	// handle collision
 	std::vector<std::shared_ptr<Bullet>> listPlayerBullet = m_mainCharacter->getBullet();
@@ -238,8 +210,12 @@ void GSPlay::Update(float deltaTime)
 			if (isCollision(listPlayerBullet[i], m_listMeteorite[j]))
 			{
 				m_mainCharacter->removeBullet(i);
-				RemoveMeteorite(j);
-				m_playerScore += 10;
+				m_listMeteorite[j]->SubHp(m_mainCharacter->GetDamage());
+				if (m_listMeteorite[j]->GetHp() <= 0)
+				{
+					RemoveMeteorite(j);
+					m_playerScore += 10;
+				}
 			}
 		}
 		for (int k = 0; k < m_listEnemy.size(); k++)
@@ -247,39 +223,37 @@ void GSPlay::Update(float deltaTime)
 			if (isCollision(listPlayerBullet[i], m_listEnemy[k]))
 			{
 				m_mainCharacter->removeBullet(i);
-				m_listEnemy.erase(m_listEnemy.begin() + k);
-				m_playerScore += 30;
+				m_listEnemy[k]->SubHp(m_mainCharacter->GetDamage());
+				if (m_listEnemy[k]->GetHp() <= 0)
+				{
+					m_listEnemy.erase(m_listEnemy.begin() + k);
+					m_playerScore += 30;
+				}	
 			}
+		}
+	}
+
+	for (int i = 0; i < m_listBoostItem.size(); i++)
+	{
+		if (isCollision(m_listBoostItem[i], m_mainCharacter))
+		{
+			if (m_listBoostItem[i]->GetID() == 2)
+			{
+				m_mainCharacter->AddHp(1);
+				m_hpText->SetText(std::to_string(m_mainCharacter->GetHp()));
+			}
+			else 
+			{
+				m_mainCharacter->SetDamage(m_mainCharacter->GetDamage() + 100);
+			}
+			m_listBoostItem.erase(m_listBoostItem.begin() + i);
 		}
 	}
 
 	if (MainCharacterCollision())
 	{
-		m_justCollided = true;
-		m_alive = false;
-		m_mainCharacter->SetHp(m_mainCharacter->GetHp() - 1);
+		m_mainCharacter->HandleAfterCollision();
 		m_hpText->SetText(std::to_string(m_mainCharacter->GetHp()));
-	}
-
-	if (m_justCollided)
-	{
-		m_immortalTime -= deltaTime;
-		if (m_immortalTime <= 0)
-		{
-			m_justCollided = false;
-			m_immortalTime = 3.0f;
-		}
-	}
-
-	if (!m_alive)
-	{
-		m_xxxxx -= deltaTime;
-		if (m_xxxxx <= 0)
-		{
-			m_alive = true;
-			m_mainCharacter->Set2DPosition((float)Globals::screenWidth / 2, (float)Globals::screenHeight - 50);
-			m_xxxxx = 1.0f;
-		}
 	}
 
 	// update possition
@@ -295,7 +269,7 @@ void GSPlay::Update(float deltaTime)
 	for (int i = 0; i < m_listEnemy.size(); i++)
 	{
 		m_listEnemy[i]->Update(deltaTime);
-		if (m_alive)
+		if (m_mainCharacter->Alive())
 		{
 			m_listEnemy[i]->Shoot(curPos);
 		}
@@ -305,17 +279,28 @@ void GSPlay::Update(float deltaTime)
 		}
 	}
 
+	for (int i = 0; i < m_listBoostItem.size(); i++)
+	{
+		m_listBoostItem[i]->Update(deltaTime);
+		if (m_listBoostItem[i]->GetPosition().y > 830)
+		{
+			m_listBoostItem.erase(m_listBoostItem.begin() + i);
+		}
+	}
+
 	// update score
 	m_score->SetText("Score: " + std::to_string(m_playerScore));
+
+	if (m_mainCharacter->GetHp() == 0)
+	{
+		GameStateMachine::GetInstance()->PushState(StateType::STATE_NO_NAME);
+	}
 }
 
 void GSPlay::Draw()
 {
 	m_background->Draw();
-	if (m_alive)
-	{
-		m_mainCharacter->Draw();
-	}
+	m_mainCharacter->Draw();
 	m_score->Draw();
 	m_hpIcon->Draw();
 	m_hpText->Draw();
@@ -327,17 +312,13 @@ void GSPlay::Draw()
 	{
 		it->Draw();
 	}
-	for (auto it : m_mainCharacter->getBullet())
-	{
-		it->Draw();
-	}
 	for (auto it : m_listEnemy)
 	{
 		it->Draw();
-		for (auto it2 : it->getBullet())
-		{
-			it2->Draw();
-		}
+	}
+	for (auto it : m_listBoostItem)
+	{
+		it->Draw();
 	}
 }
 
@@ -374,7 +355,7 @@ void GSPlay::RemoveMeteorite(int index)
 
 bool GSPlay::MainCharacterCollision()
 {
-	if (m_justCollided)
+	if (m_mainCharacter->JustCollided())
 	{
 		return false;
 	}
@@ -409,4 +390,78 @@ bool GSPlay::MainCharacterCollision()
 	}
 
 	return false;
+}
+
+void GSPlay::GenerateMeteorite(float deltaTime)
+{
+	int period = (int)m_playTime / 10 + 1;
+	int hp = period * 100;
+	if (period > 5)
+	{
+		period = 5;
+	}
+	m_meteoriteGenerateTime -= deltaTime;
+	if (m_meteoriteGenerateTime <= 0)
+	{
+		std::shared_ptr<Meteorite> meteorite;
+		if (m_meteoritePool.empty())
+		{
+			auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
+			auto texture = ResourceManagers::GetInstance()->GetTexture("rock3.tga");
+			auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
+			meteorite = std::make_shared<Meteorite>(model, shader, texture);
+		}
+		else
+		{
+			meteorite = m_meteoritePool.back();
+			m_meteoritePool.pop_back();
+		}
+		meteorite->SetSize(60, 60);
+		meteorite->SetHp(hp);
+		meteorite->Set2DPosition(30 + rand() % 421, -30);
+		m_listMeteorite.push_back(meteorite);
+		m_meteoriteGenerateTime = m_arrMeteoriteGenerateTime[period];
+	}
+}
+
+void GSPlay::GenerateEnemyShip(float deltaTime)
+{
+	m_enemyGenerateTime -= deltaTime;
+	if (m_enemyGenerateTime <= 0)
+	{
+		auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
+		auto texture = ResourceManagers::GetInstance()->GetTexture("enemy.tga");
+		auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
+		std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(model, shader, texture, 50, 200);
+		enemy->SetSize(80, 60);
+		enemy->Set2DPosition(0, 300);
+		m_listEnemy.push_back(enemy);
+		m_enemyGenerateTime = 3.0f;
+	}
+}
+
+void GSPlay::GenrateBoostItem(float deltaTime)
+{
+	m_boostItemGenerateTime -= deltaTime;
+	if (m_boostItemGenerateTime <= 0)
+	{
+		auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
+		auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
+		int id = rand() % 2 + 1;
+		std::shared_ptr<Texture> texture;
+		if (id == 1)
+		{
+			texture = ResourceManagers::GetInstance()->GetTexture("damage_boost_item.tga");
+		}
+		else
+		{
+			texture = ResourceManagers::GetInstance()->GetTexture("hp_boost_item.tga");
+		}
+		std::shared_ptr<BoostItem> item = std::make_shared<BoostItem>(model, shader, texture);
+		item->SetID(id);
+		item->SetSize(40, 40);
+		item->Set2DPosition(30 + rand() % 421, 50);
+		m_listBoostItem.push_back(item);
+		m_boostItemGenerateTime = rand() % 6 + 15;
+	}
 }

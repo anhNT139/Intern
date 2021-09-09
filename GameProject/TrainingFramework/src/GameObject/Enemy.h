@@ -8,9 +8,10 @@ class Enemy : public SpaceShip
 public:
 	Enemy():SpaceShip() {}
 	Enemy(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture);
-	Enemy(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture, int speed);
+	Enemy(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture, int speed, int hp);
 	~Enemy();
 	void Update(GLfloat deltaTime) override;
+	void Draw() override;
 	void Init() override;
 	void Shoot(Vector3 playerPos);
 };

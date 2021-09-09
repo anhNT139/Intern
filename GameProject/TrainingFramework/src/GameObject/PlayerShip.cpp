@@ -19,9 +19,60 @@ PlayerShip::~PlayerShip() {};
 
 void PlayerShip::Init()
 {
+	m_damage = 100;
 	m_shootTime = 0.0f;
 	m_shootInterval = 0.2f;
 	m_hp = 3;
+	m_xxxxx = 1.0f;
+	m_immortalTime = 3.0f;
+	m_justCollided = false;
+	m_alive = true;
+}
+
+void PlayerShip::Draw()
+{
+	if (m_alive)
+	{
+		Sprite2D::Draw();
+	}
+	for (auto it : m_listBullet)
+	{
+		it->Draw();
+	}
+}
+
+void PlayerShip::Update(GLfloat deltaTime)
+{
+	m_shootTime += deltaTime;
+	for (int i = 0; i < m_listBullet.size(); i++)
+	{
+		m_listBullet[i]->Update(deltaTime);
+		if (m_listBullet[i]->GetPosition().y < -45)
+		{
+			removeBullet(i);
+		}
+	}
+
+	if (m_justCollided)
+	{
+		m_immortalTime -= deltaTime;
+		if (m_immortalTime <= 0)
+		{
+			m_justCollided = false;
+			m_immortalTime = 3.0f;
+		}
+	}
+
+	if (!m_alive)
+	{
+		m_xxxxx -= deltaTime;
+		if (m_xxxxx <= 0)
+		{
+			m_alive = true;
+			Set2DPosition((float)Globals::screenWidth / 2, (float)Globals::screenHeight - 50);
+			m_xxxxx = 1.0f;
+		}
+	}
 }
 
 void PlayerShip::Shoot() {
@@ -46,3 +97,32 @@ void PlayerShip::Shoot() {
 		m_shootTime = 0;
 	}
 }
+
+void PlayerShip::SetDamage(int damage)
+{
+	m_damage = damage;
+}
+
+int PlayerShip::GetDamage()
+{
+	return m_damage;
+}
+
+bool PlayerShip::JustCollided()
+{
+	return m_justCollided;
+}
+
+bool PlayerShip::Alive()
+{
+	return m_alive;
+}
+
+void PlayerShip::HandleAfterCollision()
+{
+	m_justCollided = true;
+	m_alive = false;
+	m_hp--;
+}
+
+

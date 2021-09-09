@@ -9,6 +9,7 @@ class PlayerShip;
 class AnimationSprite;
 class Meteorite;
 class Enemy;
+class BoostItem;
 
 class GSPlay :
 	public GameStateBase
@@ -32,7 +33,9 @@ public:
 	bool	isCollision(std::shared_ptr<Sprite2D> o1, std::shared_ptr<Sprite2D> o2);
 	void	RemoveMeteorite(int index);
 	bool	MainCharacterCollision();
-
+	void	GenerateMeteorite(float deltaTime);
+	void	GenerateEnemyShip(float deltaTime);
+	void	GenrateBoostItem(float deltaTime);
 private:
 	std::shared_ptr<Sprite2D>	m_background;
 	std::shared_ptr<PlayerShip>	m_mainCharacter;
@@ -42,12 +45,12 @@ private:
 	std::vector<std::shared_ptr<Meteorite>>	m_listMeteorite;
 	std::list<std::shared_ptr<Meteorite>> m_meteoritePool;
 	std::list<std::shared_ptr<GameButton>>	m_listButton;
+	std::vector<std::shared_ptr<BoostItem>> m_listBoostItem;
 	std::vector<std::shared_ptr<Enemy>>	m_listEnemy;
 	float m_meteoriteGenerateTime;
 	float m_enemyGenerateTime;
+	float m_boostItemGenerateTime;
 	int m_playerScore;
-	float m_immortalTime;
-	float m_xxxxx;
-	bool m_justCollided;
-	bool m_alive;
+	float m_playTime;
+	float m_arrMeteoriteGenerateTime[6] = { 0, 4, 3.5, 3, 2.5, 2 };
 };

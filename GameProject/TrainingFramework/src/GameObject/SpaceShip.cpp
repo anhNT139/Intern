@@ -65,7 +65,12 @@ int SpaceShip::GetHp()
 	return m_hp;
 }
 
-void SpaceShip::SetHp(int hp)
+void SpaceShip::AddHp(int hp)
 {
-	m_hp = hp;
+	m_hp += hp;
+}
+
+void SpaceShip::SubHp(int hp)
+{
+	m_hp -= hp;
 }

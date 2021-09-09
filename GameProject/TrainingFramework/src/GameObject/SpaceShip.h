@@ -23,6 +23,7 @@ public:
 	void		removeBullet(int index);
 	void		SetSpeed(int speed);
 	int			GetSpeed();
-	void		SetHp(int hp);
 	int			GetHp();
+	void		AddHp(int hp);
+	void		SubHp(int hp);
 };

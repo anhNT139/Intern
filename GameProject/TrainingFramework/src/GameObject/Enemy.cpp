@@ -8,11 +8,12 @@ Enemy::Enemy(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::
 	Init();
 }
 
-Enemy::Enemy(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture, int speed)
+Enemy::Enemy(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture, int speed, int hp)
 	: SpaceShip(model, shader, texture, speed)
 {
 	Init();
 	m_speed = speed;
+	m_hp = hp;
 }
 
 Enemy::~Enemy()
@@ -26,6 +27,12 @@ void Enemy::Init()
 	m_shootInterval = 1.5f;
 }
 
+void Enemy::Draw()
+{
+	Sprite2D::Draw();
+	for (auto it : m_listBullet)
+		it->Draw();
+}
 
 void Enemy::Update(GLfloat deltaTime)
 {

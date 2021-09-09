@@ -1,12 +1,16 @@
 ﻿  GSPlay.cpp
-C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(234,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(236,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(245,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(286,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(295,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(382,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(391,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(402,20): warning C4018: '<': signed/unsigned mismatch
+D:\Intern-master\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(32,39): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Intern-master\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(206,20): warning C4018: '<': signed/unsigned mismatch
+D:\Intern-master\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(208,21): warning C4018: '<': signed/unsigned mismatch
+D:\Intern-master\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(221,21): warning C4018: '<': signed/unsigned mismatch
+D:\Intern-master\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(236,20): warning C4018: '<': signed/unsigned mismatch
+D:\Intern-master\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(260,20): warning C4018: '<': signed/unsigned mismatch
+D:\Intern-master\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(269,20): warning C4018: '<': signed/unsigned mismatch
+D:\Intern-master\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(282,20): warning C4018: '<': signed/unsigned mismatch
+D:\Intern-master\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(363,20): warning C4018: '<': signed/unsigned mismatch
+D:\Intern-master\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(372,21): warning C4018: '<': signed/unsigned mismatch
+D:\Intern-master\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(383,20): warning C4018: '<': signed/unsigned mismatch
+D:\Intern-master\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(465,40): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\xutility(158,77): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
           with
           [
@@ -27,5 +31,5 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.2
           [
               _Ty=Text
           ]
-C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(70): message : see reference to function template instantiation 'std::shared_ptr<Text> std::make_shared<Text,std::shared_ptr<Shader>&,std::shared_ptr<Font>&,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,TextColor,double>(std::shared_ptr<Shader> &,std::shared_ptr<Font> &,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&,TextColor &&,double &&)' being compiled
-  TrainingFramework.vcxproj -> C:\Users\keple\source\repos\Intern\GameProject\BIN-Nvidia\TrainingFramework.exe
+D:\Intern-master\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(69): message : see reference to function template instantiation 'std::shared_ptr<Text> std::make_shared<Text,std::shared_ptr<Shader>&,std::shared_ptr<Font>&,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,TextColor,double>(std::shared_ptr<Shader> &,std::shared_ptr<Font> &,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&,TextColor &&,double &&)' being compiled
+  TrainingFramework.vcxproj -> D:\Intern-master\GameProject\BIN-Nvidia\TrainingFramework.exe
