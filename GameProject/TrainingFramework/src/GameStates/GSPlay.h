@@ -50,7 +50,9 @@ private:
 	float m_meteoriteGenerateTime;
 	float m_enemyGenerateTime;
 	float m_boostItemGenerateTime;
-	int m_playerScore;
 	float m_playTime;
+	int m_playerScore;
 	float m_arrMeteoriteGenerateTime[6] = { 0, 4, 3.5, 3, 2.5, 2 };
+	float m_arrEnemyGenerateTime[6] = { 0, 4, 3.5, 3, 2.5, 2 };
+	int m_random;
 };

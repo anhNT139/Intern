@@ -25,7 +25,7 @@ public:
 	virtual void Update(GLfloat deltaTime) = 0;
 
 	void SetObjectID(GLuint id) { m_id = id; }
-	GLint GetObjectID(GLuint id) { return	m_id; }
+	GLint GetObjectID() { return	m_id; }
 
 	void SetName(std::string name) { m_name = name; }
 	std::string GetName() { return	m_name; }
@@ -68,6 +68,7 @@ protected:
 	Vector3			m_rotation;
 	Vector4			m_color;
 	Matrix			m_worldMatrix;
+	GLint			m_id;
 
 	std::shared_ptr<Model>		m_pModel;
 	std::shared_ptr<Shader>		m_pShader;
@@ -75,7 +76,6 @@ protected:
 	std::shared_ptr<Camera>		m_pCamera;
 
 private:
-	GLint			m_id;
 	std::string		m_name;
 };
 

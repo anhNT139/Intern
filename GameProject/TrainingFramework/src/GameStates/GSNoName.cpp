@@ -1,10 +1,16 @@
 #include "GSNoName.h"
+#include "GSPlay.h"
 #include "Text.h"
 
 GSNoName::GSNoName() : GameStateBase(StateType::STATE_CREDIT),
 m_background(nullptr), m_listButton(std::list<std::shared_ptr<GameButton>>{}), m_textScore(nullptr)
 {
 
+}
+
+GSNoName::GSNoName(int score) : GameStateBase(StateType::STATE_CREDIT),
+m_background(nullptr), m_listButton(std::list<std::shared_ptr<GameButton>>{}), m_textScore(nullptr), m_playerScore(score)
+{
 }
 
 GSNoName::~GSNoName()
@@ -56,7 +62,7 @@ void GSNoName::Init()
 	// score
 	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
 	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("Brightly Crush Shine.otf");
-	m_score = std::make_shared<Text>(shader, font, "100", TextColor::BLUE, 5);
+	m_score = std::make_shared<Text>(shader, font, std::to_string(m_playerScore), TextColor::BLUE, 5);
 	m_score->Set2DPosition(Globals::screenWidth / 4, 300);
 }
 

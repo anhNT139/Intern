@@ -7,6 +7,7 @@ class GSNoName : public GameStateBase
 public:
 	GSNoName();
 	~GSNoName();
+	GSNoName(int score);
 
 	void	Init() override;
 	void	Exit() override;
@@ -26,5 +27,5 @@ private:
 	std::shared_ptr<Sprite2D>	m_textScore;
 	std::shared_ptr<Text>		m_score;
 	std::list<std::shared_ptr<GameButton>>	m_listButton;
-
+	int m_playerScore;
 };

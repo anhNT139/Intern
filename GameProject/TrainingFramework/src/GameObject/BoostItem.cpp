@@ -9,18 +9,8 @@ BoostItem::BoostItem(std::shared_ptr<Model> model, std::shared_ptr<Shader> shade
 BoostItem::BoostItem(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture, int id)
 {
 	Init();
-	m_id = id;
 }
 
-int BoostItem::GetID()
-{
-	return m_id;
-}
-
-void BoostItem::SetID(int id)
-{
-	m_id = id;
-}
 
 void BoostItem::Update(GLfloat deltaTime)
 {

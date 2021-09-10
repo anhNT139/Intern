@@ -26,4 +26,5 @@ public:
 	int			GetHp();
 	void		AddHp(int hp);
 	void		SubHp(int hp);
+	void		SetHp(int hp);
 };

@@ -123,6 +123,10 @@ void PlayerShip::HandleAfterCollision()
 	m_justCollided = true;
 	m_alive = false;
 	m_hp--;
+	if (m_damage > 100)
+	{
+		m_damage -= 100;
+	}
 }
 
 

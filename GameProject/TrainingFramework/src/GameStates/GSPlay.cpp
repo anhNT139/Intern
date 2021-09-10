@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "Font.h"
 #include "Sprite2D.h"
+#include "GSNoName.h"
 #include "Text.h"
 #include "GameButton.h"
 #include "PlayerShip.h"
@@ -16,6 +17,7 @@
 #include "Enemy.h"
 #include <stdlib.h>
 #include <string>
+
 
 GSPlay::GSPlay()
 {
@@ -155,7 +157,6 @@ void GSPlay::HandleMouseMoveEvents(int x, int y)
 
 void GSPlay::Update(float deltaTime)
 {	
-	std::cout << m_boostItemGenerateTime << std::endl;
 	m_playTime += deltaTime;
 	Vector3 curPos = m_mainCharacter->GetPosition();
 	int speed = m_mainCharacter->GetSpeed();
@@ -237,7 +238,7 @@ void GSPlay::Update(float deltaTime)
 	{
 		if (isCollision(m_listBoostItem[i], m_mainCharacter))
 		{
-			if (m_listBoostItem[i]->GetID() == 2)
+			if (m_listBoostItem[i]->GetObjectID() == 2)
 			{
 				m_mainCharacter->AddHp(1);
 				m_hpText->SetText(std::to_string(m_mainCharacter->GetHp()));
@@ -269,11 +270,12 @@ void GSPlay::Update(float deltaTime)
 	for (int i = 0; i < m_listEnemy.size(); i++)
 	{
 		m_listEnemy[i]->Update(deltaTime);
-		if (m_mainCharacter->Alive())
+		if (m_mainCharacter->Alive() && m_listEnemy[i]->GetPosition().y <= 400)
 		{
 			m_listEnemy[i]->Shoot(curPos);
 		}
-		if (m_listEnemy[i]->GetPosition().x > 550)
+		Vector3 pos = m_listEnemy[i]->GetPosition();
+		if (pos.x > 550 || pos.x < -50 || pos.y > 850)
 		{
 			m_listEnemy.erase(m_listEnemy.begin() + i);
 		}
@@ -293,7 +295,8 @@ void GSPlay::Update(float deltaTime)
 
 	if (m_mainCharacter->GetHp() == 0)
 	{
-		GameStateMachine::GetInstance()->PushState(StateType::STATE_NO_NAME);
+		std::shared_ptr<GameStateBase> gs = std::make_shared<GSNoName>(m_playerScore);
+		GameStateMachine::GetInstance()->ChangeState(gs);
 	}
 }
 
@@ -394,15 +397,15 @@ bool GSPlay::MainCharacterCollision()
 
 void GSPlay::GenerateMeteorite(float deltaTime)
 {
-	int period = (int)m_playTime / 10 + 1;
-	int hp = period * 100;
-	if (period > 5)
-	{
-		period = 5;
-	}
 	m_meteoriteGenerateTime -= deltaTime;
 	if (m_meteoriteGenerateTime <= 0)
 	{
+		int period = (int)m_playTime / 12 + 1;
+		int hp = period * 100;
+		if (period > 5)
+		{
+			period = 5;
+		}
 		std::shared_ptr<Meteorite> meteorite;
 		if (m_meteoritePool.empty())
 		{
@@ -429,14 +432,37 @@ void GSPlay::GenerateEnemyShip(float deltaTime)
 	m_enemyGenerateTime -= deltaTime;
 	if (m_enemyGenerateTime <= 0)
 	{
+		int period = (int)m_playTime / 12 + 1;
+		int hp = period * 100;
+		if (period > 5)
+		{
+			period = 5;
+		}
+		m_random = rand() % 3 + 1;
 		auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
 		auto texture = ResourceManagers::GetInstance()->GetTexture("enemy.tga");
 		auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
-		std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(model, shader, texture, 50, 200);
+		std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(model, shader, texture, 50);
 		enemy->SetSize(80, 60);
-		enemy->Set2DPosition(0, 300);
+		enemy->SetHp(hp);
+		enemy->SetBulletSpeed(150 + period * 10);
+		enemy->SetObjectID(m_random);
+		if (m_random == 1)
+		{
+			enemy->Set2DPosition(-50, rand() % 150 + 150);
+		}
+		else if (m_random == 2)
+		{
+			
+			enemy->Set2DPosition(500, rand() % 150 + 150);
+		}
+		else if (m_random == 3)
+		{
+			enemy->Set2DPosition(40 + rand() % 411, -30);
+		}
+
 		m_listEnemy.push_back(enemy);
-		m_enemyGenerateTime = 3.0f;
+		m_enemyGenerateTime = m_arrEnemyGenerateTime[period];
 	}
 }
 
@@ -447,9 +473,9 @@ void GSPlay::GenrateBoostItem(float deltaTime)
 	{
 		auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
 		auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
-		int id = rand() % 2 + 1;
+		m_random = rand() % 2 + 1;
 		std::shared_ptr<Texture> texture;
-		if (id == 1)
+		if (m_random == 1)
 		{
 			texture = ResourceManagers::GetInstance()->GetTexture("damage_boost_item.tga");
 		}
@@ -458,7 +484,7 @@ void GSPlay::GenrateBoostItem(float deltaTime)
 			texture = ResourceManagers::GetInstance()->GetTexture("hp_boost_item.tga");
 		}
 		std::shared_ptr<BoostItem> item = std::make_shared<BoostItem>(model, shader, texture);
-		item->SetID(id);
+		item->SetObjectID(m_random);
 		item->SetSize(40, 40);
 		item->Set2DPosition(30 + rand() % 421, 50);
 		m_listBoostItem.push_back(item);

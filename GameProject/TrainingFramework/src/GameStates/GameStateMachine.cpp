@@ -32,6 +32,7 @@ void GameStateMachine::ChangeState(std::shared_ptr<GameStateBase> state)
 	m_pNextState = state;
 }
 
+
 void GameStateMachine::PushState(StateType state)
 {
 	std::shared_ptr<GameStateBase> nextState = GameStateBase::CreateState(state);

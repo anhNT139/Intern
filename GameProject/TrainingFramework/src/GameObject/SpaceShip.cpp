@@ -74,3 +74,8 @@ void SpaceShip::SubHp(int hp)
 {
 	m_hp -= hp;
 }
+
+void SpaceShip::SetHp(int hp)
+{
+	m_hp = hp;
+}
