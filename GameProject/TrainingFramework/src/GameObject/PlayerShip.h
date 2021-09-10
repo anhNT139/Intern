@@ -25,4 +25,5 @@ public:
 	void		HandleAfterCollision();
 	void		SetDamage(int damage);
 	int			GetDamage();
+	void		removeBullet(int index);
 };

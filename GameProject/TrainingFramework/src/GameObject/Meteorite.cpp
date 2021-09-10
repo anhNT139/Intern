@@ -25,7 +25,7 @@ Meteorite::~Meteorite() {};
 
 void Meteorite::Update(GLfloat deltaTime)
 {
-	Set2DPosition(this->GetPosition().x, this->GetPosition().y + 100 * deltaTime);
+	Set2DPosition(this->GetPosition().x, this->GetPosition().y + m_speed * deltaTime);
 }
 
 int Meteorite::GetHp()
@@ -41,4 +41,9 @@ void Meteorite::SubHp(int damage)
 void Meteorite::SetHp(int hp)
 {
 	m_hp = hp;
+}
+
+void Meteorite::SetSpeed(int speed)
+{
+	m_speed = speed;
 }

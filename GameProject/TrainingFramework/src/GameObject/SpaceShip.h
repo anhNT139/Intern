@@ -20,7 +20,8 @@ public:
 	~SpaceShip();
 	std::vector<std::shared_ptr<Bullet>> getBullet();
 	virtual void Update(GLfloat deltaTime);
-	void		removeBullet(int index);
+	virtual void removeBullet(int index);
+	void		SetShootInterval(int shootInterval);
 	void		SetSpeed(int speed);
 	int			GetSpeed();
 	int			GetHp();

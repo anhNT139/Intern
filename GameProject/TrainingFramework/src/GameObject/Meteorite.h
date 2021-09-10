@@ -15,5 +15,6 @@ public:
 	void	Update(GLfloat deltatime) override;
 	void	SubHp(int damage);
 	void	SetHp(int hp);
+	void	SetSpeed(int speed);
 	int		GetHp();
 };

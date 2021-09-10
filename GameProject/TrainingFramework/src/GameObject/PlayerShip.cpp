@@ -129,4 +129,8 @@ void PlayerShip::HandleAfterCollision()
 	}
 }
 
-
+void PlayerShip::removeBullet(int index)
+{
+	m_bulletPool.push_back(m_listBullet[index]);
+	m_listBullet.erase(m_listBullet.begin() + index);
+}

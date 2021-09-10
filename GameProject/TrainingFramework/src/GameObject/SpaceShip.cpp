@@ -79,3 +79,8 @@ void SpaceShip::SetHp(int hp)
 {
 	m_hp = hp;
 }
+
+void SpaceShip::SetShootInterval(int shootInterval)
+{
+	m_shootInterval = shootInterval;
+}

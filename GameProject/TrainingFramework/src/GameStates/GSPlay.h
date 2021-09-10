@@ -47,6 +47,7 @@ private:
 	std::list<std::shared_ptr<GameButton>>	m_listButton;
 	std::vector<std::shared_ptr<BoostItem>> m_listBoostItem;
 	std::vector<std::shared_ptr<Enemy>>	m_listEnemy;
+	std::shared_ptr<AnimationSprite> m_animation;
 	float m_meteoriteGenerateTime;
 	float m_enemyGenerateTime;
 	float m_boostItemGenerateTime;

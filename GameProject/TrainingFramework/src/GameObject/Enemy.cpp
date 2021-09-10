@@ -32,7 +32,7 @@ Enemy::~Enemy()
 void Enemy::Init()
 {
 	m_shootTime = 0.0f;
-	m_shootInterval = 1.5f;
+	m_shootInterval = 2.5f;
 }
 
 void Enemy::Draw()

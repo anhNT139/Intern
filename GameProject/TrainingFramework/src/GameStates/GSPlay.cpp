@@ -29,6 +29,7 @@ GSPlay::~GSPlay()
 
 void GSPlay::Init()
 {
+	srand(time(NULL));
 	m_meteoriteGenerateTime = 1.0f;
 	m_enemyGenerateTime = 3.0f;
 	m_boostItemGenerateTime = rand() % 6 + 15;
@@ -74,6 +75,12 @@ void GSPlay::Init()
 	// hp text
 	m_hpText = std::make_shared<Text>(shader, font, std::to_string(m_mainCharacter->GetHp()), TextColor::RED, 0.75);
 	m_hpText->Set2DPosition(Vector2(50, 55));
+
+	// animation
+	shader = ResourceManagers::GetInstance()->GetShader("AnimationShader");
+	texture = ResourceManagers::GetInstance()->GetTexture("explosion.tga");
+	m_animation = std::make_shared<AnimationSprite>(model, shader, texture, 8, 0.06);
+	m_animation->SetSize(60, 60);
 }
 
 void GSPlay::Exit()
@@ -197,7 +204,7 @@ void GSPlay::Update(float deltaTime)
 	// update main character
 	m_mainCharacter->Update(deltaTime);
 	
-	//Generate object
+	// Generate object
 	GenerateMeteorite(deltaTime);
 	GenerateEnemyShip(deltaTime);
 	GenrateBoostItem(deltaTime);
@@ -214,6 +221,8 @@ void GSPlay::Update(float deltaTime)
 				m_listMeteorite[j]->SubHp(m_mainCharacter->GetDamage());
 				if (m_listMeteorite[j]->GetHp() <= 0)
 				{
+					m_animation->Set2DPosition(m_listMeteorite[j]->GetPosition().x, m_listMeteorite[j]->GetPosition().y);
+					m_animation->setOn(true);
 					RemoveMeteorite(j);
 					m_playerScore += 10;
 				}
@@ -231,6 +240,8 @@ void GSPlay::Update(float deltaTime)
 				m_listEnemy[k]->SubHp(m_mainCharacter->GetDamage());
 				if (m_listEnemy[k]->GetHp() <= 0)
 				{
+					m_animation->Set2DPosition(m_listEnemy[k]->GetPosition().x, m_listEnemy[k]->GetPosition().y);
+					m_animation->setOn(true);
 					m_listEnemy.erase(m_listEnemy.begin() + k);
 					m_playerScore += 30;
 				}
@@ -302,6 +313,7 @@ void GSPlay::Update(float deltaTime)
 		std::shared_ptr<GameStateBase> gs = std::make_shared<GSNoName>(m_playerScore);
 		GameStateMachine::GetInstance()->ChangeState(gs);
 	}
+	m_animation->Update1(deltaTime);
 }
 
 void GSPlay::Draw()
@@ -311,6 +323,10 @@ void GSPlay::Draw()
 	m_score->Draw();
 	m_hpIcon->Draw();
 	m_hpText->Draw();
+	if (m_animation->IsOn())
+	{
+		m_animation->Draw();
+	}
 	for (auto it : m_listMeteorite)
 	{
 		it->Draw();
@@ -425,6 +441,7 @@ void GSPlay::GenerateMeteorite(float deltaTime)
 		}
 		meteorite->SetSize(60, 60);
 		meteorite->SetHp(hp);
+		meteorite->SetSpeed(100 + 20 * period);
 		meteorite->Set2DPosition(30 + rand() % 421, -30);
 		m_listMeteorite.push_back(meteorite);
 		m_meteoriteGenerateTime = m_arrMeteoriteGenerateTime[period];
@@ -446,9 +463,10 @@ void GSPlay::GenerateEnemyShip(float deltaTime)
 		auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
 		auto texture = ResourceManagers::GetInstance()->GetTexture("enemy.tga");
 		auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
-		std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(model, shader, texture, 50);
+		std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(model, shader, texture, 50, 2.5 - 0.1 * period);
 		enemy->SetSize(80, 60);
 		enemy->SetHp(hp);
+		enemy->SetShootInterval(2.5 - 0.1 * period);
 		enemy->SetBulletSpeed(150 + period * 5);
 		enemy->SetObjectID(m_random);
 		if (m_random == 1)
@@ -477,9 +495,9 @@ void GSPlay::GenrateBoostItem(float deltaTime)
 	{
 		auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
 		auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
-		m_random = rand() % 2 + 1;
+		m_random = rand() % 3 + 1;
 		std::shared_ptr<Texture> texture;
-		if (m_random == 1)
+		if (m_random > 1)
 		{
 			texture = ResourceManagers::GetInstance()->GetTexture("damage_boost_item.tga");
 		}

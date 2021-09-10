@@ -100,6 +100,7 @@ void AnimationSprite::Update(GLfloat deltatime)
 		if (m_currentFrame >= m_numFrames)
 		{
 			m_currentFrame = 0;
+			m_isOn = false;
 		}
 		m_currentFrameTime -= m_frameTime;
 	}
@@ -107,7 +108,7 @@ void AnimationSprite::Update(GLfloat deltatime)
 
 void AnimationSprite::Update1(GLfloat deltatime)
 {
-	if (isOn)
+	if (m_isOn)
 	{
 		m_currentFrameTime += deltatime;
 		if (m_currentFrameTime >= m_frameTime)
@@ -116,7 +117,7 @@ void AnimationSprite::Update1(GLfloat deltatime)
 			if (m_currentFrame >= m_numFrames)
 			{
 				m_currentFrame = 0;
-				isOn = false;
+				m_isOn = false;
 			}
 			m_currentFrameTime -= m_frameTime;
 		}
@@ -125,5 +126,10 @@ void AnimationSprite::Update1(GLfloat deltatime)
 
 void AnimationSprite::setOn(bool b)
 {
-	isOn = b;
+	m_isOn = b;
+}
+
+bool AnimationSprite::IsOn()
+{
+	return m_isOn;
 }

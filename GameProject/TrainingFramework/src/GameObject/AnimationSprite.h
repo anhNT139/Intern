@@ -9,7 +9,7 @@ protected:
 	int m_currentFrame;
 	float m_frameTime;
 	float m_currentFrameTime;
-	bool isOn = false;
+	bool m_isOn = false;
 public:
 	AnimationSprite();
 	AnimationSprite(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture, int numFrames,
@@ -20,4 +20,5 @@ public:
 	void		Update(GLfloat deltatime) override;
 	void		Update1(GLfloat deltatime);
 	void		setOn(bool b);
+	bool		IsOn();
 };
