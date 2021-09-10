@@ -219,6 +219,10 @@ void GSPlay::Update(float deltaTime)
 				}
 			}
 		}
+	}
+	listPlayerBullet = m_mainCharacter->getBullet();
+	for (int i = 0; i < listPlayerBullet.size(); i++)
+	{
 		for (int k = 0; k < m_listEnemy.size(); k++)
 		{
 			if (isCollision(listPlayerBullet[i], m_listEnemy[k]))
@@ -229,7 +233,7 @@ void GSPlay::Update(float deltaTime)
 				{
 					m_listEnemy.erase(m_listEnemy.begin() + k);
 					m_playerScore += 30;
-				}	
+				}
 			}
 		}
 	}
@@ -445,7 +449,7 @@ void GSPlay::GenerateEnemyShip(float deltaTime)
 		std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(model, shader, texture, 50);
 		enemy->SetSize(80, 60);
 		enemy->SetHp(hp);
-		enemy->SetBulletSpeed(150 + period * 10);
+		enemy->SetBulletSpeed(150 + period * 5);
 		enemy->SetObjectID(m_random);
 		if (m_random == 1)
 		{
