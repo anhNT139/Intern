@@ -14,6 +14,7 @@
 #include "AnimationSprite.h"
 #include "Meteorite.h"
 #include "BoostItem.h"
+#include "ParallelBG.h"
 #include "Enemy.h"
 #include <stdlib.h>
 #include <string>
@@ -40,9 +41,7 @@ void GSPlay::Init()
 
 	// background
 	auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
-	m_background = std::make_shared<Sprite2D>(model, shader, texture);
-	m_background->Set2DPosition((float)Globals::screenWidth / 2, (float)Globals::screenHeight / 2);
-	m_background->SetSize(Globals::screenWidth, Globals::screenHeight);
+	m_background = std::make_shared<ParallelBG>(model, shader, texture, 100.0f);
 
 	// hp icon
 	texture = ResourceManagers::GetInstance()->GetTexture("hp_icon.tga");
@@ -119,7 +118,7 @@ void GSPlay::HandleKeyEvents(int key, bool bIsPressed)
 		case VK_DOWN:
 			keyPressed |= KEY_MOVE_BACKWORD;
 			break;
-		case VK_SPACE:
+		case 'A':
 			keyPressed |= KEY_SHOOT;
 			break;
 		}
@@ -140,7 +139,7 @@ void GSPlay::HandleKeyEvents(int key, bool bIsPressed)
 		case VK_DOWN:
 			keyPressed ^= KEY_MOVE_BACKWORD;
 			break;
-		case VK_SPACE:
+		case 'A':
 			keyPressed ^= KEY_SHOOT;
 			break;
 		}
@@ -172,27 +171,30 @@ void GSPlay::Update(float deltaTime)
 	{
 		curPos.x -= speed * deltaTime;
 		if (curPos.x < 30)
-			curPos.x = 30;
+		curPos.x = 30;
+		m_mainCharacter->Set2DPosition(curPos.x, curPos.y);
 	}
 	if (keyPressed & KEY_MOVE_RIGHT)
 	{	
 		curPos.x += speed * deltaTime;
 		if (curPos.x > 450)
 			curPos.x = 450;
+		m_mainCharacter->Set2DPosition(curPos.x, curPos.y);
 	}
 	if (keyPressed & KEY_MOVE_BACKWORD)
 	{
 		curPos.y += speed * deltaTime;
 		if (curPos.y > 770)
 			curPos.y = 770;
+		m_mainCharacter->Set2DPosition(curPos.x, curPos.y);
 	}
 	if (keyPressed & KEY_MOVE_FORWORD)
 	{
 		curPos.y -= speed * deltaTime;
 		if (curPos.y < 30)
 			curPos.y = 30;
+		m_mainCharacter->Set2DPosition(curPos.x, curPos.y);
 	}
-	m_mainCharacter->Set2DPosition(curPos.x, curPos.y);
 	if (keyPressed & KEY_SHOOT)
 	{
 		if (m_mainCharacter->Alive())
@@ -314,6 +316,7 @@ void GSPlay::Update(float deltaTime)
 		GameStateMachine::GetInstance()->ChangeState(gs);
 	}
 	m_animation->Update1(deltaTime);
+	m_background->Update(deltaTime);
 }
 
 void GSPlay::Draw()

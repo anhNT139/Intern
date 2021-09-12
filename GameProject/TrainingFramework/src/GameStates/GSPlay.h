@@ -10,6 +10,7 @@ class AnimationSprite;
 class Meteorite;
 class Enemy;
 class BoostItem;
+class ParallelBG;
 
 class GSPlay :
 	public GameStateBase
@@ -37,7 +38,7 @@ public:
 	void	GenerateEnemyShip(float deltaTime);
 	void	GenrateBoostItem(float deltaTime);
 private:
-	std::shared_ptr<Sprite2D>	m_background;
+	std::shared_ptr<ParallelBG>	m_background;
 	std::shared_ptr<PlayerShip>	m_mainCharacter;
 	std::shared_ptr<Sprite2D>	m_hpIcon;
 	std::shared_ptr<Text>	m_hpText;

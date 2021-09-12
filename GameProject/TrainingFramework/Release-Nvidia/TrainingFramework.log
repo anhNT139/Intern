@@ -1,0 +1,140 @@
+﻿  Application.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\xutility(158,77): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\memory(2029): message : see reference to function template instantiation 'void std::_Construct_in_place<_Ty,int,int,int&,int,int&,float,float,float>(_Ty &,int &&,int &&,int &,int &&,int &,float &&,float &&,float &&) noexcept(false)' being compiled
+          with
+          [
+              _Ty=Camera
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\memory(2748): message : see reference to function template instantiation 'std::_Ref_count_obj2<_Ty>::_Ref_count_obj2<int,int,int&,int,int&,float,float,float>(int &&,int &&,int &,int &&,int &,float &&,float &&,float &&)' being compiled
+          with
+          [
+              _Ty=Camera
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\memory(2748): message : see reference to function template instantiation 'std::_Ref_count_obj2<_Ty>::_Ref_count_obj2<int,int,int&,int,int&,float,float,float>(int &&,int &&,int &,int &&,int &,float &&,float &&,float &&)' being compiled
+          with
+          [
+              _Ty=Camera
+          ]
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\Application.cpp(20): message : see reference to function template instantiation 'std::shared_ptr<Camera> std::make_shared<Camera,int,int,int&,int,int&,float,float,float>(int &&,int &&,int &,int &&,int &,float &&,float &&,float &&)' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\xutility(158,77): warning C4244: 'argument': conversion from '_Ty' to 'GLfloat', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+  ResourceManagers.cpp
+  AnimationSprite.cpp
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameObject\AnimationSprite.cpp(79,39): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameObject\AnimationSprite.cpp(84,39): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+  BoostItem.cpp
+  Bullet.cpp
+  Enemy.cpp
+  Font.cpp
+  GameButton.cpp
+  Meteorite.cpp
+  PlayerShip.cpp
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameObject\PlayerShip.cpp(47,20): warning C4018: '<': signed/unsigned mismatch
+  SpaceShip.cpp
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameObject\SpaceShip.cpp(32,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameObject\SpaceShip.cpp(85,20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Sprite2D.cpp
+  Camera.cpp
+  Sprite3D.cpp
+  Model.cpp
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameObject\Model.cpp(25,18): warning C4244: 'initializing': conversion from 'std::streamoff' to 'size_t', possible loss of data
+  Shader.cpp
+  Text.cpp
+  Texture.cpp
+  GameStateBase.cpp
+  GameStateMachine.cpp
+  Compiling...
+  GSCredit.cpp
+  GSInGameMenu.cpp
+  GSIntro.cpp
+  GSMenu.cpp
+  GSNoName.cpp
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSNoName.cpp(66,46): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\xutility(158,77): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\memory(2029): message : see reference to function template instantiation 'void std::_Construct_in_place<_Ty,std::shared_ptr<Shader>&,std::shared_ptr<Font>&,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,TextColor,int>(_Ty &,std::shared_ptr<Shader> &,std::shared_ptr<Font> &,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&,TextColor &&,int &&) noexcept(false)' being compiled
+          with
+          [
+              _Ty=Text
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\memory(2748): message : see reference to function template instantiation 'std::_Ref_count_obj2<_Ty>::_Ref_count_obj2<std::shared_ptr<Shader>&,std::shared_ptr<Font>&,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,TextColor,int>(std::shared_ptr<Shader> &,std::shared_ptr<Font> &,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&,TextColor &&,int &&)' being compiled
+          with
+          [
+              _Ty=Text
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\memory(2748): message : see reference to function template instantiation 'std::_Ref_count_obj2<_Ty>::_Ref_count_obj2<std::shared_ptr<Shader>&,std::shared_ptr<Font>&,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,TextColor,int>(std::shared_ptr<Shader> &,std::shared_ptr<Font> &,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&,TextColor &&,int &&)' being compiled
+          with
+          [
+              _Ty=Text
+          ]
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSNoName.cpp(65): message : see reference to function template instantiation 'std::shared_ptr<Text> std::make_shared<Text,std::shared_ptr<Shader>&,std::shared_ptr<Font>&,std::string,TextColor,int>(std::shared_ptr<Shader> &,std::shared_ptr<Font> &,std::string &&,TextColor &&,int &&)' being compiled
+  GSPlay.cpp
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(32,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(35,39): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(214,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(216,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(233,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(235,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(252,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(276,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(285,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(299,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(386,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(395,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(406,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(469,31): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(513,40): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\xutility(158,77): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\memory(2029): message : see reference to function template instantiation 'void std::_Construct_in_place<_Ty,std::shared_ptr<Shader>&,std::shared_ptr<Font>&,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,TextColor,double>(_Ty &,std::shared_ptr<Shader> &,std::shared_ptr<Font> &,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&,TextColor &&,double &&) noexcept(false)' being compiled
+          with
+          [
+              _Ty=Text
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\memory(2748): message : see reference to function template instantiation 'std::_Ref_count_obj2<_Ty>::_Ref_count_obj2<std::shared_ptr<Shader>&,std::shared_ptr<Font>&,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,TextColor,double>(std::shared_ptr<Shader> &,std::shared_ptr<Font> &,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&,TextColor &&,double &&)' being compiled
+          with
+          [
+              _Ty=Text
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\memory(2748): message : see reference to function template instantiation 'std::_Ref_count_obj2<_Ty>::_Ref_count_obj2<std::shared_ptr<Shader>&,std::shared_ptr<Font>&,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,TextColor,double>(std::shared_ptr<Shader> &,std::shared_ptr<Font> &,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&,TextColor &&,double &&)' being compiled
+          with
+          [
+              _Ty=Text
+          ]
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(72): message : see reference to function template instantiation 'std::shared_ptr<Text> std::make_shared<Text,std::shared_ptr<Shader>&,std::shared_ptr<Font>&,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,TextColor,double>(std::shared_ptr<Shader> &,std::shared_ptr<Font> &,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&,TextColor &&,double &&)' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\xutility(158,77): warning C4244: 'argument': conversion from '_Ty' to 'int', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\memory(2029): message : see reference to function template instantiation 'void std::_Construct_in_place<_Ty,std::shared_ptr<Model>&,std::shared_ptr<Shader>&,std::shared_ptr<Texture>&,int,double>(_Ty &,std::shared_ptr<Model> &,std::shared_ptr<Shader> &,std::shared_ptr<Texture> &,int &&,double &&) noexcept(false)' being compiled
+          with
+          [
+              _Ty=Enemy
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\memory(2748): message : see reference to function template instantiation 'std::_Ref_count_obj2<_Ty>::_Ref_count_obj2<std::shared_ptr<Model>&,std::shared_ptr<Shader>&,std::shared_ptr<Texture>&,int,double>(std::shared_ptr<Model> &,std::shared_ptr<Shader> &,std::shared_ptr<Texture> &,int &&,double &&)' being compiled
+          with
+          [
+              _Ty=Enemy
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\memory(2748): message : see reference to function template instantiation 'std::_Ref_count_obj2<_Ty>::_Ref_count_obj2<std::shared_ptr<Model>&,std::shared_ptr<Shader>&,std::shared_ptr<Texture>&,int,double>(std::shared_ptr<Model> &,std::shared_ptr<Shader> &,std::shared_ptr<Texture> &,int &&,double &&)' being compiled
+          with
+          [
+              _Ty=Enemy
+          ]
+C:\Users\keple\source\repos\Intern\GameProject\TrainingFramework\src\GameStates\GSPlay.cpp(466): message : see reference to function template instantiation 'std::shared_ptr<Enemy> std::make_shared<Enemy,std::shared_ptr<Model>&,std::shared_ptr<Shader>&,std::shared_ptr<Texture>&,int,double>(std::shared_ptr<Model> &,std::shared_ptr<Shader> &,std::shared_ptr<Texture> &,int &&,double &&)' being compiled
+  TrainingFramework.cpp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 2086 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  TrainingFramework.vcxproj -> C:\Users\keple\source\repos\Intern\GameProject\BIN-Nvidia\TrainingFramework.exe

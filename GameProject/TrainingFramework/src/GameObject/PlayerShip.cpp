@@ -2,7 +2,6 @@
 #include "Bullet.h"
 #include "ResourceManagers.h"
 
-
 PlayerShip::PlayerShip(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture)
 	: SpaceShip(model, shader, texture) 
 {
@@ -13,6 +12,16 @@ PlayerShip::PlayerShip(std::shared_ptr<Model> model, std::shared_ptr<Shader> sha
 {
 	Init();
 	m_speed = speed;
+	auto b_model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
+	auto b_texture = ResourceManagers::GetInstance()->GetTexture("player_laser.tga");
+	auto b_shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
+	std::shared_ptr<Bullet> bullet; 
+	for (int i = 1; i <= 20; i++)
+	{
+		bullet = std::make_shared<Bullet>(b_model, b_shader, b_texture, Vector2(0, -1), 300);
+		bullet->SetSize(16, 41);
+		m_bulletPool.push_back(bullet);
+	}
 }
 
 PlayerShip::~PlayerShip() {};
@@ -85,6 +94,7 @@ void PlayerShip::Shoot() {
 			auto texture = ResourceManagers::GetInstance()->GetTexture("player_laser.tga");
 			auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
 			bullet = std::make_shared<Bullet>(model, shader, texture, Vector2(0, -1), 300);
+			bullet->SetSize(16, 41);
 		}
 		else
 		{
@@ -92,7 +102,6 @@ void PlayerShip::Shoot() {
 			m_bulletPool.pop_back();
 		}
 		bullet->Set2DPosition(GetPosition().x, GetPosition().y - 50);
-		bullet->SetSize(16, 41);
 		m_listBullet.push_back(bullet);
 		m_shootTime = 0;
 	}
@@ -127,10 +136,4 @@ void PlayerShip::HandleAfterCollision()
 	{
 		m_damage -= 100;
 	}
-}
-
-void PlayerShip::removeBullet(int index)
-{
-	m_bulletPool.push_back(m_listBullet[index]);
-	m_listBullet.erase(m_listBullet.begin() + index);
 }

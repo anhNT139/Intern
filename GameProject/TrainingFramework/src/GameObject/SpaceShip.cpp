@@ -46,6 +46,10 @@ std::vector<std::shared_ptr<Bullet>> SpaceShip::getBullet() {
 
 void SpaceShip::removeBullet(int index)
 {
+	if (index >= m_listBullet.size())
+	{
+		index = m_listBullet.size() - 1;
+	}
 	m_bulletPool.push_back(m_listBullet[index]);
 	m_listBullet.erase(m_listBullet.begin() + index);
 }

@@ -72,6 +72,7 @@ void Enemy::Shoot(Vector3 playerPos) {
 			auto texture = ResourceManagers::GetInstance()->GetTexture("enemy_laser.tga");
 			auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
 			bullet = std::make_shared<Bullet>(model, shader, texture, direction, m_bulletSpeed);
+			bullet->SetSize(20, 20);
 		}
 		else
 		{
@@ -80,7 +81,6 @@ void Enemy::Shoot(Vector3 playerPos) {
 			bullet->SetDirection(direction);
 		}
 		bullet->Set2DPosition(GetPosition().x, GetPosition().y);
-		bullet->SetSize(20, 20);
 		m_listBullet.push_back(bullet);
 		m_shootTime = 0;
 	}
