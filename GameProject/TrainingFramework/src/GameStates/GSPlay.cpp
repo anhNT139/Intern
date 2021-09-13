@@ -75,11 +75,6 @@ void GSPlay::Init()
 	m_hpText = std::make_shared<Text>(shader, font, std::to_string(m_mainCharacter->GetHp()), TextColor::RED, 0.75);
 	m_hpText->Set2DPosition(Vector2(50, 55));
 
-	// animation
-	shader = ResourceManagers::GetInstance()->GetShader("AnimationShader");
-	texture = ResourceManagers::GetInstance()->GetTexture("explosion.tga");
-	m_animation = std::make_shared<AnimationSprite>(model, shader, texture, 8, 0.06);
-	m_animation->SetSize(60, 60);
 }
 
 void GSPlay::Exit()
@@ -223,8 +218,7 @@ void GSPlay::Update(float deltaTime)
 				m_listMeteorite[j]->SubHp(m_mainCharacter->GetDamage());
 				if (m_listMeteorite[j]->GetHp() <= 0)
 				{
-					m_animation->Set2DPosition(m_listMeteorite[j]->GetPosition().x, m_listMeteorite[j]->GetPosition().y);
-					m_animation->setOn(true);
+					ExplosionAnimation(m_listMeteorite[j]->GetPosition());
 					RemoveMeteorite(j);
 					m_playerScore += 10;
 				}
@@ -242,8 +236,7 @@ void GSPlay::Update(float deltaTime)
 				m_listEnemy[k]->SubHp(m_mainCharacter->GetDamage());
 				if (m_listEnemy[k]->GetHp() <= 0)
 				{
-					m_animation->Set2DPosition(m_listEnemy[k]->GetPosition().x, m_listEnemy[k]->GetPosition().y);
-					m_animation->setOn(true);
+					ExplosionAnimation(m_listEnemy[k]->GetPosition());
 					m_listEnemy.erase(m_listEnemy.begin() + k);
 					m_playerScore += 30;
 				}
@@ -270,6 +263,7 @@ void GSPlay::Update(float deltaTime)
 
 	if (MainCharacterCollision())
 	{
+		ExplosionAnimation(m_mainCharacter->GetPosition());
 		m_mainCharacter->HandleAfterCollision();
 		m_hpText->SetText(std::to_string(m_mainCharacter->GetHp()));
 	}
@@ -315,7 +309,14 @@ void GSPlay::Update(float deltaTime)
 		std::shared_ptr<GameStateBase> gs = std::make_shared<GSNoName>(m_playerScore);
 		GameStateMachine::GetInstance()->ChangeState(gs);
 	}
-	m_animation->Update1(deltaTime);
+	for (int i = 0; i < m_listAnimation.size(); i++)
+	{
+		m_listAnimation[i]->Update1(deltaTime);
+		if (!m_listAnimation[i]->IsOn())
+		{
+			m_listAnimation.erase(m_listAnimation.begin() + i);
+		}
+	}
 	m_background->Update(deltaTime);
 }
 
@@ -326,9 +327,12 @@ void GSPlay::Draw()
 	m_score->Draw();
 	m_hpIcon->Draw();
 	m_hpText->Draw();
-	if (m_animation->IsOn())
+	for (auto it : m_listAnimation)
 	{
-		m_animation->Draw();
+		if (it->IsOn())
+		{
+			it->Draw();
+		}
 	}
 	for (auto it : m_listMeteorite)
 	{
@@ -515,4 +519,15 @@ void GSPlay::GenrateBoostItem(float deltaTime)
 		m_listBoostItem.push_back(item);
 		m_boostItemGenerateTime = rand() % 6 + 15;
 	}
+}
+
+void GSPlay::ExplosionAnimation(Vector3 possition)
+{
+	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
+	auto shader = ResourceManagers::GetInstance()->GetShader("AnimationShader");
+	auto texture = ResourceManagers::GetInstance()->GetTexture("explosion.tga");
+	std::shared_ptr<AnimationSprite> animation = std::make_shared<AnimationSprite>(model, shader, texture, 8, 0.08);
+	animation->Set2DPosition(possition.x, possition.y);
+	animation->SetSize(60, 60);
+	m_listAnimation.push_back(animation);
 }

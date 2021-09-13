@@ -9,7 +9,7 @@ AnimationSprite::AnimationSprite() : m_numFrames(0), m_currentFrame(0), m_frameT
 {}
 
 AnimationSprite::AnimationSprite(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture, int numFrames,
-	float frameTime) : Sprite2D(model, shader, texture), m_numFrames(numFrames), m_currentFrame(0), m_frameTime(frameTime), m_currentFrameTime(0.0f)
+	float frameTime) : Sprite2D(model, shader, texture), m_numFrames(numFrames), m_currentFrame(0), m_frameTime(frameTime), m_currentFrameTime(0.0f), m_isOn(true)
 {}
 
 

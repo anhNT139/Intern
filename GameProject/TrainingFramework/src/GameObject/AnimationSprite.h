@@ -9,7 +9,7 @@ protected:
 	int m_currentFrame;
 	float m_frameTime;
 	float m_currentFrameTime;
-	bool m_isOn = false;
+	bool m_isOn;
 public:
 	AnimationSprite();
 	AnimationSprite(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture, int numFrames,
